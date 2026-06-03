@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>My Project Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
@@ -24,7 +24,7 @@
     }
   </script>
   <style>
-    * { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+    * { font-family: 'Noto Sans Thai', 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
     body { background: #0c0e14; overscroll-behavior: none; }
     input, select, textarea, button { font-size: 16px !important; }
     ::-webkit-scrollbar { width: 4px; height: 4px; }
@@ -87,18 +87,18 @@
         <svg class="w-8 h-8 text-surface-950" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
       </div>
       <h1 class="text-xl font-bold text-white mb-2">My Project Dashboard</h1>
-      <p class="text-slate-400 text-sm mb-8">เข้าสู่ระบบด้วย Google เพื่อ sync ข้อมูลข้ามอุปกรณ์</p>
+      <p class="text-slate-400 text-sm mb-8">ร ยขรฉร’รรรจรรยบยบยดรฉรร Google ร ยพร—รจร sync ยขรฉรรรร…ยขรฉร’รรรยปยกรยณรฌ</p>
       <button onclick="signIn()" class="w-full flex items-center justify-center gap-3 bg-white text-slate-900 font-semibold py-3 px-5 rounded-xl hover:bg-slate-100 transition-all touch-manipulation" style="min-height:52px;">
         <svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
         Sign in with Google
       </button>
-      <p class="text-[11px] text-slate-600 mt-6">ข้อมูลเก็บใน Firebase Firestore (ฟรี) • ไม่เก็บรหัสผ่าน</p>
+      <p class="text-[11px] text-slate-600 mt-6">ยขรฉรรรร…ร ยกรงยบรฃยน Firebase Firestore (ยฟรร•) ย• รครรจร ยกรงยบรรร‘รยผรจร’ยน</p>
     </div>
   </div>
 
   <!-- LOADING -->
   <div id="loadingOverlay" class="fixed inset-0 z-[150] hidden items-center justify-center bg-surface-950/80 backdrop-blur-sm">
-    <div class="flex flex-col items-center gap-3"><div class="spinner"></div><p class="text-slate-400 text-sm">กำลังโหลดข้อมูล...</p></div>
+    <div class="flex flex-col items-center gap-3"><div class="spinner"></div><p class="text-slate-400 text-sm">ยกร“ร…ร‘ยงรขรร…ยดยขรฉรรรร…...</p></div>
   </div>
 
   <!-- HEADER -->
@@ -116,7 +116,7 @@
           <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14m-7-7h14"/></svg>
           <span class="hidden sm:inline">Add</span>
         </button>
-        <button onclick="signOut()" class="p-2 rounded-lg text-slate-500 hover:text-red-400 hover:bg-red-500/10 transition-all touch-manipulation" style="min-height:44px; min-width:44px; display:flex; align-items:center; justify-content:center;" title="ออกจากระบบ">
+        <button onclick="signOut()" class="p-2 rounded-lg text-slate-500 hover:text-red-400 hover:bg-red-500/10 transition-all touch-manipulation" style="min-height:44px; min-width:44px; display:flex; align-items:center; justify-content:center;" title="รรยกยจร’ยกรรยบยบ">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
         </button>
       </div>
@@ -126,23 +126,23 @@
   <main class="max-w-7xl mx-auto px-3 sm:px-6 py-4 sm:py-6 space-y-4 sm:space-y-6">
     <section id="summarySection" class="flex flex-wrap gap-2 sm:gap-3"></section>
     <section class="grid grid-cols-4 gap-2 sm:gap-3">
-      <div class="summary-card bg-surface-800/60 rounded-xl p-2 sm:p-3 text-center"><p class="text-[9px] sm:text-[10px] uppercase tracking-widest text-slate-500 font-semibold mb-0.5 sm:mb-1">สำเร็จ</p><p class="text-lg sm:text-xl font-bold text-green-400" id="sumSuccess">0</p></div>
-      <div class="summary-card bg-surface-800/60 rounded-xl p-2 sm:p-3 text-center"><p class="text-[9px] sm:text-[10px] uppercase tracking-widest text-slate-500 font-semibold mb-0.5 sm:mb-1">ไม่สำเร็จ</p><p class="text-lg sm:text-xl font-bold text-red-400" id="sumFail">0</p></div>
-      <div class="summary-card bg-surface-800/60 rounded-xl p-2 sm:p-3 text-center"><p class="text-[9px] sm:text-[10px] uppercase tracking-widest text-slate-500 font-semibold mb-0.5 sm:mb-1">ขายแล้ว</p><p class="text-lg sm:text-xl font-bold text-green-400" id="sumSold">0</p></div>
-      <div class="summary-card bg-surface-800/60 rounded-xl p-2 sm:p-3 text-center"><p class="text-[9px] sm:text-[10px] uppercase tracking-widest text-slate-500 font-semibold mb-0.5 sm:mb-1">ลองขาย</p><p class="text-lg sm:text-xl font-bold text-amber-400" id="sumSelling">0</p></div>
+      <div class="summary-card bg-surface-800/60 rounded-xl p-2 sm:p-3 text-center"><p class="text-[9px] sm:text-[10px] uppercase tracking-widest text-slate-500 font-semibold mb-0.5 sm:mb-1">รร“ร รรงยจ</p><p class="text-lg sm:text-xl font-bold text-green-400" id="sumSuccess">0</p></div>
+      <div class="summary-card bg-surface-800/60 rounded-xl p-2 sm:p-3 text-center"><p class="text-[9px] sm:text-[10px] uppercase tracking-widest text-slate-500 font-semibold mb-0.5 sm:mb-1">รครรจรร“ร รรงยจ</p><p class="text-lg sm:text-xl font-bold text-red-400" id="sumFail">0</p></div>
+      <div class="summary-card bg-surface-800/60 rounded-xl p-2 sm:p-3 text-center"><p class="text-[9px] sm:text-[10px] uppercase tracking-widest text-slate-500 font-semibold mb-0.5 sm:mb-1">ยขร’รรกร…รฉร</p><p class="text-lg sm:text-xl font-bold text-green-400" id="sumSold">0</p></div>
+      <div class="summary-card bg-surface-800/60 rounded-xl p-2 sm:p-3 text-center"><p class="text-[9px] sm:text-[10px] uppercase tracking-widest text-slate-500 font-semibold mb-0.5 sm:mb-1">ร…รยงยขร’ร</p><p class="text-lg sm:text-xl font-bold text-amber-400" id="sumSelling">0</p></div>
     </section>
     <section class="filter-scroll flex items-center gap-2 overflow-x-auto pb-1 -mx-3 px-3 sm:mx-0 sm:px-0">
-      <button onclick="filterProjects('all')" class="filter-btn active-filter text-[13px] font-medium px-3.5 py-2 rounded-lg transition-all touch-manipulation" data-filter="all" style="min-height:40px;">ทั้งหมด</button>
-      <button onclick="filterProjects('รอสร้าง')" class="filter-btn text-[13px] font-medium px-3.5 py-2 rounded-lg transition-all touch-manipulation" data-filter="รอสร้าง" style="min-height:40px;">? รอสร้าง</button>
-      <button onclick="filterProjects('กำลังสร้าง')" class="filter-btn text-[13px] font-medium px-3.5 py-2 rounded-lg transition-all touch-manipulation" data-filter="กำลังสร้าง" style="min-height:40px;">?? กำลังสร้าง</button>
-      <button onclick="filterProjects('รอทดลองใช้')" class="filter-btn text-[13px] font-medium px-3.5 py-2 rounded-lg transition-all touch-manipulation" data-filter="รอทดลองใช้" style="min-height:40px;">?? รอทดลอง</button>
-      <button onclick="filterProjects('แก้ไข')" class="filter-btn text-[13px] font-medium px-3.5 py-2 rounded-lg transition-all touch-manipulation" data-filter="แก้ไข" style="min-height:40px;">?? แก้ไข</button>
-      <button onclick="filterProjects('เสร็จแล้ว')" class="filter-btn text-[13px] font-medium px-3.5 py-2 rounded-lg transition-all touch-manipulation" data-filter="เสร็จแล้ว" style="min-height:40px;">? เสร็จแล้ว</button>
+      <button onclick="filterProjects('all')" class="filter-btn active-filter text-[13px] font-medium px-3.5 py-2 rounded-lg transition-all touch-manipulation" data-filter="all" style="min-height:40px;">ยทร‘รฉยงรรยด</button>
+      <button onclick="filterProjects('รรรรรฉร’ยง')" class="filter-btn text-[13px] font-medium px-3.5 py-2 rounded-lg transition-all touch-manipulation" data-filter="รรรรรฉร’ยง" style="min-height:40px;">? รรรรรฉร’ยง</button>
+      <button onclick="filterProjects('ยกร“ร…ร‘ยงรรรฉร’ยง')" class="filter-btn text-[13px] font-medium px-3.5 py-2 rounded-lg transition-all touch-manipulation" data-filter="ยกร“ร…ร‘ยงรรรฉร’ยง" style="min-height:40px;">?? ยกร“ร…ร‘ยงรรรฉร’ยง</button>
+      <button onclick="filterProjects('รรยทยดร…รยงรฃยชรฉ')" class="filter-btn text-[13px] font-medium px-3.5 py-2 rounded-lg transition-all touch-manipulation" data-filter="รรยทยดร…รยงรฃยชรฉ" style="min-height:40px;">?? รรยทยดร…รยง</button>
+      <button onclick="filterProjects('รกยกรฉรคยข')" class="filter-btn text-[13px] font-medium px-3.5 py-2 rounded-lg transition-all touch-manipulation" data-filter="รกยกรฉรคยข" style="min-height:40px;">?? รกยกรฉรคยข</button>
+      <button onclick="filterProjects('ร รรรงยจรกร…รฉร')" class="filter-btn text-[13px] font-medium px-3.5 py-2 rounded-lg transition-all touch-manipulation" data-filter="ร รรรงยจรกร…รฉร" style="min-height:40px;">? ร รรรงยจรกร…รฉร</button>
     </section>
     <section id="cardsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4"></section>
     <section id="emptyState" class="hidden text-center py-16 sm:py-20">
       <div class="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-4 rounded-2xl bg-surface-800/60 neon-border flex items-center justify-center"><svg class="w-7 h-7 sm:w-8 sm:h-8 text-neon-400/40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
-      <p class="text-slate-500 text-[13px] sm:text-sm font-medium">ยังไม่มีโปรเจกต์ — กด <span class="text-neon-400">+</span> เพื่อเริ่มต้น</p>
+      <p class="text-slate-500 text-[13px] sm:text-sm font-medium">รร‘ยงรครรจรร•รขยปรร ยจยกยตรฌ ย— ยกยด <span class="text-neon-400">+</span> ร ยพร—รจรร รร”รจรยตรฉยน</p>
     </section>
   </main>
 
@@ -156,13 +156,13 @@
       </div>
       <form id="projectForm" onsubmit="handleSubmit(event)" class="p-5 sm:p-6 space-y-4">
         <input type="hidden" id="editId" value="" />
-        <div><label class="block text-[10px] sm:text-[11px] uppercase tracking-widest text-slate-400 font-semibold mb-1.5">ชื่อโปรเจกต์</label><input id="fName" type="text" required placeholder="เช่น AI Content Generator" class="form-input w-full rounded-lg px-4 py-3 text-sm text-white touch-manipulation" style="min-height:48px;" /></div>
-        <div><label class="block text-[10px] sm:text-[11px] uppercase tracking-widest text-slate-400 font-semibold mb-1.5">ประเภทโปรเจกต์</label><select id="fType" required class="form-select w-full rounded-lg px-4 py-3 text-sm text-white touch-manipulation" style="min-height:48px;"><option value="">— เลือก —</option><option value="APP">?? APP</option><option value="Automation Chatbot">?? Automation Chatbot</option><option value="Task ผ่านแพลตฟอร์ม">? Task ผ่านแพลตฟอร์ม</option><option value="Agent">?? Agent</option></select></div>
-        <div><label class="block text-[10px] sm:text-[11px] uppercase tracking-widest text-slate-400 font-semibold mb-1.5">เครื่องมือ AI ที่ใช้เป็นหลัก</label><input id="fAI" type="text" required placeholder="เช่น ChatGPT, Claude, Gemini" class="form-input w-full rounded-lg px-4 py-3 text-sm text-white touch-manipulation" style="min-height:48px;" /></div>
-        <div><label class="block text-[10px] sm:text-[11px] uppercase tracking-widest text-slate-400 font-semibold mb-1.5">สถานะ</label><select id="fStatus" required class="form-select w-full rounded-lg px-4 py-3 text-sm text-white touch-manipulation" style="min-height:48px;"><option value="รอสร้าง">? รอสร้าง</option><option value="กำลังสร้าง">?? กำลังสร้าง</option><option value="รอทดลองใช้">?? รอทดลองใช้</option><option value="แก้ไข">?? แก้ไข</option><option value="เสร็จแล้ว">? เสร็จแล้ว</option></select></div>
-        <div><label class="block text-[10px] sm:text-[11px] uppercase tracking-widest text-slate-400 font-semibold mb-1.5">ผลลัพธ์</label><select id="fResult" required class="form-select w-full rounded-lg px-4 py-3 text-sm text-white touch-manipulation" style="min-height:48px;"><option value="">— เลือก —</option><option value="สำเร็จ">? สำเร็จ</option><option value="ไม่สำเร็จ">? ไม่สำเร็จ</option></select></div>
-        <div><label class="block text-[10px] sm:text-[11px] uppercase tracking-widest text-slate-400 font-semibold mb-1.5">นำไปต่อยอด</label><select id="fNext" required class="form-select w-full rounded-lg px-4 py-3 text-sm text-white touch-manipulation" style="min-height:48px;"><option value="">— เลือก —</option><option value="ใช้ในการทำงาน">?? ใช้ในการทำงาน</option><option value="รอทำเป็นสินค้า">?? รอทำเป็นสินค้า</option><option value="กำลังลองขาย">?? กำลังลองขาย</option><option value="ขายได้แล้ว">?? ขายได้แล้ว</option></select></div>
-        <div class="flex gap-3 pt-2 pb-4 sm:pb-0"><button type="button" onclick="closeFormModal()" class="flex-1 rounded-lg px-4 py-3 text-sm font-medium text-slate-400 bg-surface-800 border border-slate-700/50 hover:text-slate-200 transition-all touch-manipulation" style="min-height:48px;">ยกเลิก</button><button type="submit" class="flex-1 btn-neon rounded-lg px-4 py-3 text-sm font-bold text-white touch-manipulation" style="min-height:48px;"><span id="submitBtnText">Add Project</span></button></div>
+        <div><label class="block text-[10px] sm:text-[11px] uppercase tracking-widest text-slate-400 font-semibold mb-1.5">ยชร—รจรรขยปรร ยจยกยตรฌ</label><input id="fName" type="text" required placeholder="ร ยชรจยน AI Content Generator" class="form-input w-full rounded-lg px-4 py-3 text-sm text-white touch-manipulation" style="min-height:48px;" /></div>
+        <div><label class="block text-[10px] sm:text-[11px] uppercase tracking-widest text-slate-400 font-semibold mb-1.5">ยปรรร ร€ยทรขยปรร ยจยกยตรฌ</label><select id="fType" required class="form-select w-full rounded-lg px-4 py-3 text-sm text-white touch-manipulation" style="min-height:48px;"><option value="">ย— ร ร…ร—รยก ย—</option><option value="APP">?? APP</option><option value="Automation Chatbot">?? Automation Chatbot</option><option value="Task ยผรจร’ยนรกยพร…ยตยฟรรรฌร">? Task ยผรจร’ยนรกยพร…ยตยฟรรรฌร</option><option value="Agent">?? Agent</option></select></div>
+        <div><label class="block text-[10px] sm:text-[11px] uppercase tracking-widest text-slate-400 font-semibold mb-1.5">ร ยครร—รจรยงรร—ร AI ยทร•รจรฃยชรฉร ยปรงยนรร…ร‘ยก</label><input id="fAI" type="text" required placeholder="ร ยชรจยน ChatGPT, Claude, Gemini" class="form-input w-full rounded-lg px-4 py-3 text-sm text-white touch-manipulation" style="min-height:48px;" /></div>
+        <div><label class="block text-[10px] sm:text-[11px] uppercase tracking-widest text-slate-400 font-semibold mb-1.5">รยถร’ยนร</label><select id="fStatus" required class="form-select w-full rounded-lg px-4 py-3 text-sm text-white touch-manipulation" style="min-height:48px;"><option value="รรรรรฉร’ยง">? รรรรรฉร’ยง</option><option value="ยกร“ร…ร‘ยงรรรฉร’ยง">?? ยกร“ร…ร‘ยงรรรฉร’ยง</option><option value="รรยทยดร…รยงรฃยชรฉ">?? รรยทยดร…รยงรฃยชรฉ</option><option value="รกยกรฉรคยข">?? รกยกรฉรคยข</option><option value="ร รรรงยจรกร…รฉร">? ร รรรงยจรกร…รฉร</option></select></div>
+        <div><label class="block text-[10px] sm:text-[11px] uppercase tracking-widest text-slate-400 font-semibold mb-1.5">ยผร…ร…ร‘ยพยธรฌ</label><select id="fResult" required class="form-select w-full rounded-lg px-4 py-3 text-sm text-white touch-manipulation" style="min-height:48px;"><option value="">ย— ร ร…ร—รยก ย—</option><option value="รร“ร รรงยจ">? รร“ร รรงยจ</option><option value="รครรจรร“ร รรงยจ">? รครรจรร“ร รรงยจ</option></select></div>
+        <div><label class="block text-[10px] sm:text-[11px] uppercase tracking-widest text-slate-400 font-semibold mb-1.5">ยนร“รคยปยตรจรรรยด</label><select id="fNext" required class="form-select w-full rounded-lg px-4 py-3 text-sm text-white touch-manipulation" style="min-height:48px;"><option value="">ย— ร ร…ร—รยก ย—</option><option value="รฃยชรฉรฃยนยกร’รยทร“ยงร’ยน">?? รฃยชรฉรฃยนยกร’รยทร“ยงร’ยน</option><option value="รรยทร“ร ยปรงยนรร”ยนยครฉร’">?? รรยทร“ร ยปรงยนรร”ยนยครฉร’</option><option value="ยกร“ร…ร‘ยงร…รยงยขร’ร">?? ยกร“ร…ร‘ยงร…รยงยขร’ร</option><option value="ยขร’รรคยดรฉรกร…รฉร">?? ยขร’รรคยดรฉรกร…รฉร</option></select></div>
+        <div class="flex gap-3 pt-2 pb-4 sm:pb-0"><button type="button" onclick="closeFormModal()" class="flex-1 rounded-lg px-4 py-3 text-sm font-medium text-slate-400 bg-surface-800 border border-slate-700/50 hover:text-slate-200 transition-all touch-manipulation" style="min-height:48px;">รยกร ร…ร”ยก</button><button type="submit" class="flex-1 btn-neon rounded-lg px-4 py-3 text-sm font-bold text-white touch-manipulation" style="min-height:48px;"><span id="submitBtnText">Add Project</span></button></div>
       </form>
     </div>
   </div>
@@ -170,14 +170,14 @@
   <div id="deleteModal" class="fixed inset-0 z-[110] hidden items-center justify-center p-4 modal-overlay">
     <div class="w-full max-w-sm bg-surface-850 rounded-2xl border border-red-500/20 neon-glow overflow-hidden fade-in-up text-center p-6">
       <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-red-500/10 flex items-center justify-center"><svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></div>
-      <p class="text-white font-semibold text-sm mb-1">ลบโปรเจกต์นี้?</p>
-      <p class="text-slate-500 text-xs mb-5" id="deleteProjectName">การกระทำนี้ไม่สามารถย้อนกลับได้</p>
-      <div class="flex gap-3"><button onclick="closeDeleteModal()" class="flex-1 rounded-lg px-4 py-3 text-sm font-medium text-slate-400 bg-surface-800 border border-slate-700/50 hover:text-slate-200 transition-all touch-manipulation" style="min-height:48px;">ยกเลิก</button><button onclick="confirmDelete()" class="flex-1 rounded-lg px-4 py-3 text-sm font-bold text-white bg-red-500/20 border border-red-500/30 hover:bg-red-500/30 transition-all touch-manipulation" style="min-height:48px;">ลบ</button></div>
+      <p class="text-white font-semibold text-sm mb-1">ร…ยบรขยปรร ยจยกยตรฌยนร•รฉ?</p>
+      <p class="text-slate-500 text-xs mb-5" id="deleteProjectName">ยกร’รยกรรยทร“ยนร•รฉรครรจรร’รร’รยถรรฉรยนยกร…ร‘ยบรคยดรฉ</p>
+      <div class="flex gap-3"><button onclick="closeDeleteModal()" class="flex-1 rounded-lg px-4 py-3 text-sm font-medium text-slate-400 bg-surface-800 border border-slate-700/50 hover:text-slate-200 transition-all touch-manipulation" style="min-height:48px;">รยกร ร…ร”ยก</button><button onclick="confirmDelete()" class="flex-1 rounded-lg px-4 py-3 text-sm font-bold text-white bg-red-500/20 border border-red-500/30 hover:bg-red-500/30 transition-all touch-manipulation" style="min-height:48px;">ร…ยบ</button></div>
     </div>
   </div>
 
   <script>
-    // ?? Firebase Config (ใส่ให้เรียบร้อยแล้ว)
+    // ?? Firebase Config (รฃรรจรฃรรฉร รร•รยบรรฉรรรกร…รฉร)
     const firebaseConfig = {
       apiKey: "AIzaSyCmkKXEpYbBtwCKLzKD-3KenFB5rhlq6GM",
       authDomain: "wrp-project-40e24.firebaseapp.com",
@@ -218,7 +218,7 @@
       unsubscribeFirestore = db.collection('users').doc(currentUser.uid).collection('projects').onSnapshot(snap => {
         projects = []; snap.forEach(d => projects.push({ id: d.id, ...d.data() }));
         renderAll(); showLoading(false);
-      }, err => { console.error(err); showLoading(false); alert('โหลดข้อมูลล้มเหลว: '+err.message); });
+      }, err => { console.error(err); showLoading(false); alert('รขรร…ยดยขรฉรรรร…ร…รฉรร รร…ร: '+err.message); });
     }
 
     function showLoading(s) { const e=document.getElementById('loadingOverlay'); if(s){e.classList.remove('hidden');e.classList.add('flex');}else{e.classList.add('hidden');e.classList.remove('flex');} }
@@ -226,21 +226,21 @@
     async function updateProject(id, d) { await db.collection('users').doc(currentUser.uid).collection('projects').doc(id).update(d); }
     async function deleteProject(id) { await db.collection('users').doc(currentUser.uid).collection('projects').doc(id).delete(); }
 
-    const statusConfig = {'รอสร้าง':{badge:'badge-waiting',icon:'?',order:0},'กำลังสร้าง':{badge:'badge-building',icon:'??',order:1},'รอทดลองใช้':{badge:'badge-testing',icon:'??',order:2},'แก้ไข':{badge:'badge-fixing',icon:'??',order:3},'เสร็จแล้ว':{badge:'badge-done',icon:'?',order:4}};
-    const statusCycle = ['รอสร้าง','กำลังสร้าง','รอทดลองใช้','แก้ไข','เสร็จแล้ว'];
-    const resultClass = {'สำเร็จ':'result-success','ไม่สำเร็จ':'result-fail'};
-    const nextClass = {'ใช้ในการทำงาน':'next-work','รอทำเป็นสินค้า':'next-product','กำลังลองขาย':'next-selling','ขายได้แล้ว':'next-sold'};
-    const typeIcons = {'APP':'??','Automation Chatbot':'??','Task ผ่านแพลตฟอร์ม':'?','Agent':'??'};
+    const statusConfig = {'รรรรรฉร’ยง':{badge:'badge-waiting',icon:'?',order:0},'ยกร“ร…ร‘ยงรรรฉร’ยง':{badge:'badge-building',icon:'??',order:1},'รรยทยดร…รยงรฃยชรฉ':{badge:'badge-testing',icon:'??',order:2},'รกยกรฉรคยข':{badge:'badge-fixing',icon:'??',order:3},'ร รรรงยจรกร…รฉร':{badge:'badge-done',icon:'?',order:4}};
+    const statusCycle = ['รรรรรฉร’ยง','ยกร“ร…ร‘ยงรรรฉร’ยง','รรยทยดร…รยงรฃยชรฉ','รกยกรฉรคยข','ร รรรงยจรกร…รฉร'];
+    const resultClass = {'รร“ร รรงยจ':'result-success','รครรจรร“ร รรงยจ':'result-fail'};
+    const nextClass = {'รฃยชรฉรฃยนยกร’รยทร“ยงร’ยน':'next-work','รรยทร“ร ยปรงยนรร”ยนยครฉร’':'next-product','ยกร“ร…ร‘ยงร…รยงยขร’ร':'next-selling','ยขร’รรคยดรฉรกร…รฉร':'next-sold'};
+    const typeIcons = {'APP':'??','Automation Chatbot':'??','Task ยผรจร’ยนรกยพร…ยตยฟรรรฌร':'?','Agent':'??'};
     function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML;}
 
     function renderSummary() {
-      const sec=document.getElementById('summarySection'), statuses=['รอสร้าง','กำลังสร้าง','รอทดลองใช้','แก้ไข','เสร็จแล้ว'];
+      const sec=document.getElementById('summarySection'), statuses=['รรรรรฉร’ยง','ยกร“ร…ร‘ยงรรรฉร’ยง','รรยทยดร…รยงรฃยชรฉ','รกยกรฉรคยข','ร รรรงยจรกร…รฉร'];
       const colors=[{bg:'rgba(251,191,36,0.06)',border:'rgba(251,191,36,0.15)',text:'text-amber-400',dot:'bg-amber-400'},{bg:'rgba(59,130,246,0.06)',border:'rgba(59,130,246,0.15)',text:'text-blue-400',dot:'bg-blue-400'},{bg:'rgba(168,85,247,0.06)',border:'rgba(168,85,247,0.15)',text:'text-purple-400',dot:'bg-purple-400'},{bg:'rgba(251,146,60,0.06)',border:'rgba(251,146,60,0.15)',text:'text-orange-400',dot:'bg-orange-400'},{bg:'rgba(34,197,94,0.06)',border:'rgba(34,197,94,0.15)',text:'text-green-400',dot:'bg-green-400'}];
       sec.innerHTML=statuses.map((s,i)=>{const c=colors[i],cfg=statusConfig[s],w=i===4?'w-full sm:w-auto':'w-[calc(50%-4px)] sm:w-auto';return `<div class="${w} summary-card rounded-xl p-2.5 sm:p-3 cursor-pointer touch-manipulation" style="background:${c.bg};border:1px solid ${c.border};min-height:64px;" onclick="filterProjects('${s}')"><div class="flex items-center gap-1.5 mb-0.5"><span class="w-1.5 h-1.5 rounded-full ${c.dot} pulse-neon shrink-0"></span><span class="text-[9px] sm:text-[10px] uppercase tracking-widest text-slate-500 font-semibold truncate">${cfg.icon} ${s}</span></div><p class="text-xl sm:text-2xl font-extrabold ${c.text}">${projects.filter(p=>p.status===s).length}</p></div>`;}).join('');
-      document.getElementById('sumSuccess').textContent=projects.filter(p=>p.result==='สำเร็จ').length;
-      document.getElementById('sumFail').textContent=projects.filter(p=>p.result==='ไม่สำเร็จ').length;
-      document.getElementById('sumSold').textContent=projects.filter(p=>p.nextStep==='ขายได้แล้ว').length;
-      document.getElementById('sumSelling').textContent=projects.filter(p=>p.nextStep==='กำลังลองขาย').length;
+      document.getElementById('sumSuccess').textContent=projects.filter(p=>p.result==='รร“ร รรงยจ').length;
+      document.getElementById('sumFail').textContent=projects.filter(p=>p.result==='รครรจรร“ร รรงยจ').length;
+      document.getElementById('sumSold').textContent=projects.filter(p=>p.nextStep==='ยขร’รรคยดรฉรกร…รฉร').length;
+      document.getElementById('sumSelling').textContent=projects.filter(p=>p.nextStep==='ยกร“ร…ร‘ยงร…รยงยขร’ร').length;
       document.getElementById('totalProjects').textContent=projects.length+' projects';
     }
 
@@ -250,13 +250,13 @@
       f.sort((a,b)=>{const d=(statusConfig[a.status]?.order||0)-(statusConfig[b.status]?.order||0);return d!==0?d:(b.createdAt||0)-(a.createdAt||0);});
       if(!f.length){c.innerHTML='';e.classList.remove('hidden');return;}
       e.classList.add('hidden');
-      c.innerHTML=f.map((p,i)=>{const sc=statusConfig[p.status]||{},rc=resultClass[p.result]||'',nc=nextClass[p.nextStep]||'',ti=typeIcons[p.type]||'??',done=p.status==='เสร็จแล้ว';
+      c.innerHTML=f.map((p,i)=>{const sc=statusConfig[p.status]||{},rc=resultClass[p.result]||'',nc=nextClass[p.nextStep]||'',ti=typeIcons[p.type]||'??',done=p.status==='ร รรรงยจรกร…รฉร';
         return `<div class="project-card bg-surface-800/70 rounded-xl p-4 sm:p-5 fade-in-up relative" style="animation-delay:${i*0.05}s">
           <div class="flex items-start justify-between mb-2.5 sm:mb-3"><div class="flex items-center gap-2 min-w-0"><span class="text-base sm:text-lg shrink-0">${ti}</span><h3 class="font-bold text-white text-[13px] sm:text-sm truncate">${esc(p.name)}</h3></div><div class="flex items-center gap-1 shrink-0 ml-2"><button onclick="editProject('${p.id}')" class="p-2 rounded-md text-slate-600 hover:text-neon-400 hover:bg-neon-400/5 transition-all touch-manipulation" style="min-width:36px;min-height:36px;display:flex;align-items:center;justify-content:center;"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button><button onclick="openDeleteModal('${p.id}')" class="btn-delete p-2 rounded-md text-slate-600 touch-manipulation" style="min-width:36px;min-height:36px;display:flex;align-items:center;justify-content:center;"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button></div></div>
           <div class="flex flex-wrap items-center gap-2 mb-2.5 sm:mb-3"><span class="text-[11px] font-medium px-2 py-0.5 rounded-md" style="background:rgba(0,212,255,0.08);color:#00d4ff;border:1px solid rgba(0,212,255,0.15);">${esc(p.type)}</span><span class="text-[11px] text-slate-500 truncate">?? ${esc(p.aiTools)}</span></div>
           <div class="mb-2.5 sm:mb-3"><button onclick="cycleStatus('${p.id}')" class="btn-status-cycle inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-semibold px-2.5 py-1.5 rounded-md ${sc.badge||''} touch-manipulation" style="min-height:32px;">${sc.icon||''} ${p.status} <svg class="w-3 h-3 opacity-40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></button></div>
-          <div class="flex flex-wrap gap-2 mb-2.5 sm:mb-3"><span class="text-[11px] font-medium px-2 py-0.5 rounded-md ${rc}">${p.result==='สำเร็จ'?'?':'?'} ${esc(p.result)}</span><span class="text-[11px] font-medium px-2 py-0.5 rounded-md ${nc}"> ${esc(p.nextStep)}</span></div>
-          ${!done?`<button onclick="markDone('${p.id}')" class="w-full mt-1 text-[11px] sm:text-xs font-semibold py-2 rounded-md bg-green-500/8 border border-green-500/20 text-green-400 hover:bg-green-500/15 transition-all touch-manipulation" style="min-height:40px;">? สำเร็จแล้ว</button>`:`<div class="w-full mt-1 text-[11px] sm:text-xs font-semibold py-2 rounded-md bg-green-500/10 border border-green-500/20 text-green-400 text-center" style="min-height:40px;">? เสร็จสมบูรณ์</div>`}
+          <div class="flex flex-wrap gap-2 mb-2.5 sm:mb-3"><span class="text-[11px] font-medium px-2 py-0.5 rounded-md ${rc}">${p.result==='รร“ร รรงยจ'?'?':'?'} ${esc(p.result)}</span><span class="text-[11px] font-medium px-2 py-0.5 rounded-md ${nc}"> ${esc(p.nextStep)}</span></div>
+          ${!done?`<button onclick="markDone('${p.id}')" class="w-full mt-1 text-[11px] sm:text-xs font-semibold py-2 rounded-md bg-green-500/8 border border-green-500/20 text-green-400 hover:bg-green-500/15 transition-all touch-manipulation" style="min-height:40px;">? รร“ร รรงยจรกร…รฉร</button>`:`<div class="w-full mt-1 text-[11px] sm:text-xs font-semibold py-2 rounded-md bg-green-500/10 border border-green-500/20 text-green-400 text-center" style="min-height:40px;">? ร รรรงยจรรยบรรยณรฌ</div>`}
           <p class="text-[10px] text-slate-600 mt-2">${p.createdAt?new Date(p.createdAt).toLocaleDateString('th-TH',{year:'numeric',month:'short',day:'numeric'}):''}</p>
         </div>`;}).join('');
     }
@@ -265,13 +265,13 @@
     function renderAll(){renderSummary();renderCards();}
     function openFormModal(d=null){const m=document.getElementById('formModal');m.classList.remove('hidden');m.classList.add('flex');document.getElementById('projectForm').reset();document.getElementById('editId').value='';document.getElementById('submitBtnText').textContent='Add Project';document.getElementById('modalTitle').textContent='Add New Project';document.body.style.overflow='hidden';if(d){document.getElementById('editId').value=d.id;document.getElementById('fName').value=d.name;document.getElementById('fType').value=d.type;document.getElementById('fAI').value=d.aiTools;document.getElementById('fStatus').value=d.status;document.getElementById('fResult').value=d.result;document.getElementById('fNext').value=d.nextStep;document.getElementById('submitBtnText').textContent='Update';document.getElementById('modalTitle').textContent='Edit Project';}}
     function closeFormModal(){const m=document.getElementById('formModal');m.classList.add('hidden');m.classList.remove('flex');document.body.style.overflow='';}
-    async function handleSubmit(e){e.preventDefault();const id=document.getElementById('editId').value,data={name:document.getElementById('fName').value.trim(),type:document.getElementById('fType').value,aiTools:document.getElementById('fAI').value.trim(),status:document.getElementById('fStatus').value,result:document.getElementById('fResult').value,nextStep:document.getElementById('fNext').value};try{if(id)await updateProject(id,data);else await addProject(data);closeFormModal();}catch(err){alert('บันทึกล้มเหลว: '+err.message);}}
+    async function handleSubmit(e){e.preventDefault();const id=document.getElementById('editId').value,data={name:document.getElementById('fName').value.trim(),type:document.getElementById('fType').value,aiTools:document.getElementById('fAI').value.trim(),status:document.getElementById('fStatus').value,result:document.getElementById('fResult').value,nextStep:document.getElementById('fNext').value};try{if(id)await updateProject(id,data);else await addProject(data);closeFormModal();}catch(err){alert('ยบร‘ยนยทร–ยกร…รฉรร รร…ร: '+err.message);}}
     function editProject(id){const p=projects.find(x=>x.id===id);if(p)openFormModal(p);}
-    function openDeleteModal(id){deleteTargetId=id;const p=projects.find(x=>x.id===id);document.getElementById('deleteProjectName').textContent=`"${p?.name||''}" จะถูกลบถาวร`;const m=document.getElementById('deleteModal');m.classList.remove('hidden');m.classList.add('flex');document.body.style.overflow='hidden';}
+    function openDeleteModal(id){deleteTargetId=id;const p=projects.find(x=>x.id===id);document.getElementById('deleteProjectName').textContent=`"${p?.name||''}" ยจรยถรยกร…ยบยถร’รร`;const m=document.getElementById('deleteModal');m.classList.remove('hidden');m.classList.add('flex');document.body.style.overflow='hidden';}
     function closeDeleteModal(){const m=document.getElementById('deleteModal');m.classList.add('hidden');m.classList.remove('flex');document.body.style.overflow='';deleteTargetId=null;}
-    async function confirmDelete(){if(deleteTargetId){try{await deleteProject(deleteTargetId);}catch(e){alert('ลบล้มเหลว: '+e.message);}}closeDeleteModal();}
+    async function confirmDelete(){if(deleteTargetId){try{await deleteProject(deleteTargetId);}catch(e){alert('ร…ยบร…รฉรร รร…ร: '+e.message);}}closeDeleteModal();}
     async function cycleStatus(id){const p=projects.find(x=>x.id===id);if(!p)return;const i=statusCycle.indexOf(p.status);await updateProject(id,{status:statusCycle[(i+1)%statusCycle.length]});}
-    async function markDone(id){const p=projects.find(x=>x.id===id);if(!p)return;await updateProject(id,{status:'เสร็จแล้ว'});}
+    async function markDone(id){const p=projects.find(x=>x.id===id);if(!p)return;await updateProject(id,{status:'ร รรรงยจรกร…รฉร'});}
 
     document.getElementById('formModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeFormModal();});
     document.getElementById('deleteModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeDeleteModal();});
