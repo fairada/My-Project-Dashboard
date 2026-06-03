@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="th" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>My Project Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { inter: ['Inter', 'sans-serif'] },
+          colors: {
+            neon: { 400: '#00d4ff', 500: '#00b4d8', 600: '#0096c7' },
+            surface: { 800: '#1a1d27', 850: '#15171f', 900: '#111318', 950: '#0c0e14' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { background: #0c0e14; overscroll-behavior: none; }
+
+    /* Prevent iOS zoom on input focus */
+    input, select, textarea, button { font-size: 16px !important; }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-track { background: #111318; }
+    ::-webkit-scrollbar-thumb { background: #0096c7; border-radius: 3px; }
+
+    /* Neon Glow */
+    .neon-glow { box-shadow: 0 0 15px rgba(0, 212, 255, 0.15), 0 0 40px rgba(0, 212, 255, 0.05); }
+    .neon-glow-strong { box-shadow: 0 0 20px rgba(0, 212, 255, 0.3), 0 0 60px rgba(0, 212, 255, 0.1); }
+    .neon-border { border: 1px solid rgba(0, 212, 255, 0.25); }
+
+    /* Status Badges */
+    .badge-waiting { background: rgba(251,191,36,0.15); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
+    .badge-building { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+    .badge-testing { background: rgba(168,85,247,0.15); color: #c084fc; border: 1px solid rgba(168,85,247,0.3); }
+    .badge-fixing { background: rgba(251,146,60,0.15); color: #fb923c; border: 1px solid rgba(251,146,60,0.3); }
+    .badge-done { background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+
+    /* Result */
+    .result-success { background: rgba(34,197,94,0.12); color: #4ade80; border: 1px solid rgba(34,197,94,0.25); }
+    .result-fail { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.25); }
+
+    /* Next Step */
+    .next-work { background: rgba(99,102,241,0.12); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.25); }
+    .next-product { background: rgba(236,72,153,0.12); color: #f9a8d4; border: 1px solid rgba(236,72,153,0.25); }
+    .next-selling { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
+    .next-sold { background: rgba(34,197,94,0.12); color: #4ade80; border: 1px solid rgba(34,197,94,0.25); }
+
+    /* Card */
+    .project-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(0, 212, 255, 0.08);
+    }
+    @media (hover: hover) {
+      .project-card:hover {
+        border-color: rgba(0, 212, 255, 0.25);
+        box-shadow: 0 0 20px rgba(0, 212, 255, 0.08), 0 8px 32px rgba(0,0,0,0.3);
+        transform: translateY(-2px);
+      }
+    }
+
+    /* Form Inputs — 16px+ prevents iOS zoom */
+    .form-input {
+      background: rgba(26, 29, 39, 0.8);
+      border: 1px solid rgba(0, 212, 255, 0.12);
+      transition: all 0.25s ease;
+      font-size: 16px !important;
+    }
+    .form-input:focus {
+      border-color: rgba(0, 212, 255, 0.5);
+      box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+      outline: none;
+    }
+    .form-input::placeholder { color: rgba(148, 163, 184, 0.5); }
+
+    .form-select {
+      background: rgba(26, 29, 39, 0.8);
+      border: 1px solid rgba(0, 212, 255, 0.12);
+      transition: all 0.25s ease;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2300d4ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 36px;
+      font-size: 16px !important;
+    }
+    .form-select:focus {
+      border-color: rgba(0, 212, 255, 0.5);
+      box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+      outline: none;
+    }
+    .form-select option { background: #1a1d27; color: #e2e8f0; }
+
+    /* Buttons */
+    .btn-neon {
+      background: linear-gradient(135deg, #00b4d8, #0096c7);
+      transition: all 0.3s ease;
+    }
+    .btn-neon:hover, .btn-neon:active {
+      background: linear-gradient(135deg, #00d4ff, #00b4d8);
+      box-shadow: 0 0 25px rgba(0, 212, 255, 0.35);
+    }
+
+    .summary-card {
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0, 212, 255, 0.06);
+    }
+    @media (hover: hover) {
+      .summary-card:hover {
+        border-color: rgba(0, 212, 255, 0.2);
+        box-shadow: 0 0 15px rgba(0, 212, 255, 0.06);
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in-up { animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+
+    @keyframes pulse-neon {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .pulse-neon { animation: pulse-neon 2s ease-in-out infinite; }
+
+    .btn-delete { transition: all 0.2s ease; }
+    .btn-delete:hover, .btn-delete:active { background: rgba(239,68,68,0.2); color: #f87171; }
+
+    .btn-status-cycle { transition: all 0.25s ease; }
+    .btn-status-cycle:active { transform: scale(0.96); }
+
+    .bg-grid {
+      background-image:
+        linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    .modal-overlay {
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+    }
+
+    /* ── Filter Buttons ── */
+    .filter-btn {
+      background: rgba(26,29,39,0.6);
+      color: #64748b;
+      border: 1px solid rgba(100,116,139,0.15);
+      white-space: nowrap;
+      flex-shrink: 0;
+      touch-action: manipulation;
+    }
+    .filter-btn:active { color: #94a3b8; border-color: rgba(100,116,139,0.3); }
+    .active-filter {
+      background: rgba(0,212,255,0.1) !important;
+      color: #00d4ff !important;
+      border-color: rgba(0,212,255,0.3) !important;
+    }
+
+    /* ── Horizontal scroll for filters on mobile ── */
+    .filter-scroll {
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .filter-scroll::-webkit-scrollbar { display: none; }
+
+    /* ── Modal scrollable on mobile ── */
+    .modal-body-scroll {
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* ── Safe area for notched phones ── */
+    .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
+    .safe-top { padding-top: env(safe-area-inset-top, 0px); }
+  </style>
+</head>
+<body class="min-h-screen bg-grid text-slate-200 safe-bottom">
+
+  <!-- ===== HEADER ===== -->
+  <header class="sticky top-0 z-50 border-b border-slate-800/60 safe-top" style="background: rgba(12,14,20,0.88); backdrop-filter: blur(16px);">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-neon-400 to-neon-600 flex items-center justify-center neon-glow shrink-0">
+          <svg class="w-4 h-4 text-surface-950" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <div class="min-w-0">
+          <h1 class="text-[15px] sm:text-lg font-bold text-white tracking-tight truncate">My Project Dashboard</h1>
+          <p class="text-[10px] text-slate-500 font-medium tracking-wide uppercase hidden sm:block">Track · Build · Ship</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <span class="text-[11px] text-slate-500 hidden md:inline" id="totalProjects">0 projects</span>
+        <button onclick="openFormModal()" class="btn-neon text-white text-[13px] sm:text-sm font-semibold px-4 py-2.5 rounded-lg flex items-center gap-1.5 touch-manipulation" style="min-height:44px;">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14m-7-7h14"/></svg>
+          <span class="hidden sm:inline">Add Project</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 py-4 sm:py-6 space-y-4 sm:space-y-6">
+
+    <!-- ===== SUMMARY: 5 Statuses ===== -->
+    <!-- Mobile: 2+2+1 layout via flex wrap -->
+    <section id="summarySection" class="flex flex-wrap gap-2 sm:gap-3">
+      <!-- Filled by JS -->
+    </section>
+
+    <!-- ===== EXTRA SUMMARY: 2x2 grid ===== -->
+    <section class="grid grid-cols-4 gap-2 sm:gap-3">
+      <div class="summary-card bg-surface-800/60 rounded-xl p-2 sm:p-3 text-center">
+        <p class="text-[9px] sm:text-[10px] uppercase tracking-widest text-slate-500 font-semibold mb-0.5 sm:mb-1">สำเร็จ</p>
+        <p class="text-lg sm:text-xl font-bold text-green-400" id="sumSuccess">0</p>
+      </div>
+      <div class="summary-card bg-surface-800/60 rounded-xl p-2 sm:p-3 text-center">
+        <p class="text-[9px] sm:text-[10px] uppercase tracking-widest text-slate-500 font-semibold mb-0.5 sm:mb-1">ไม่สำเร็จ</p>
+        <p class="text-lg sm:text-xl font-bold text-red-400" id="sumFail">0</p>
+      </div>
+      <div class="summary-card bg-surface-800/60 rounded-xl p-2 sm:p-3 text-center">
+        <p class="text-[9px] sm:text-[10px] uppercase tracking-widest text-slate-500 font-semibold mb-0.5 sm:mb-1">ขายแล้ว</p>
+        <p class="text-lg sm:text-xl font-bold text-green-400" id="sumSold">0</p>
+      </div>
+      <div class="summary-card bg-surface-800/60 rounded-xl p-2 sm:p-3 text-center">
+        <p class="text-[9px] sm:text-[10px] uppercase tracking-widest text-slate-500 font-semibold mb-0.5 sm:mb-1">ลองขาย</p>
+        <p class="text-lg sm:text-xl font-bold text-amber-400" id="sumSelling">0</p>
+      </div>
+    </section>
+
+    <!-- ===== FILTER BAR — Horizontal Scroll on Mobile ===== -->
+    <section class="filter-scroll flex items-center gap-2 overflow-x-auto pb-1 -mx-3 px-3 sm:mx-0 sm:px-0">
+      <button onclick="filterProjects('all')" class="filter-btn active-filter text-[13px] font-medium px-3.5 py-2 rounded-lg transition-all touch-manipulation" data-filter="all" style="min-height:40px;">ทั้งหมด</button>
+      <button onclick="filterProjects('รอสร้าง')" class="filter-btn text-[13px] font-medium px-3.5 py-2 rounded-lg transition-all touch-manipulation" data-filter="รอสร้าง" style="min-height:40px;">⏳ รอสร้าง</button>
+      <button onclick="filterProjects('กำลังสร้าง')" class="filter-btn text-[13px] font-medium px-3.5 py-2 rounded-lg transition-all touch-manipulation" data-filter="กำลังสร้าง" style="min-height:40px;">🔨 กำลังสร้าง</button>
+      <button onclick="filterProjects('รอทดลองใช้')" class="filter-btn text-[13px] font-medium px-3.5 py-2 rounded-lg transition-all touch-manipulation" data-filter="รอทดลองใช้" style="min-height:40px;">🧪 รอทดลอง</button>
+      <button onclick="filterProjects('แก้ไข')" class="filter-btn text-[13px] font-medium px-3.5 py-2 rounded-lg transition-all touch-manipulation" data-filter="แก้ไข" style="min-height:40px;">🔧 แก้ไข</button>
+      <button onclick="filterProjects('เสร็จแล้ว')" class="filter-btn text-[13px] font-medium px-3.5 py-2 rounded-lg transition-all touch-manipulation" data-filter="เสร็จแล้ว" style="min-height:40px;">✅ เสร็จแล้ว</button>
+    </section>
+
+    <!-- ===== PROJECT CARDS ===== -->
+    <section id="cardsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+      <!-- Cards rendered by JS -->
+    </section>
+
+    <!-- ===== EMPTY STATE ===== -->
+    <section id="emptyState" class="hidden text-center py-16 sm:py-20">
+      <div class="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-4 rounded-2xl bg-surface-800/60 neon-border flex items-center justify-center">
+        <svg class="w-7 h-7 sm:w-8 sm:h-8 text-neon-400/40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </div>
+      <p class="text-slate-500 text-[13px] sm:text-sm font-medium">ยังไม่มีโปรเจกต์ — กด <span class="text-neon-400">+</span> เพื่อเริ่มต้น</p>
+    </section>
+  </main>
+
+  <!-- ===== ADD/EDIT MODAL ===== -->
+  <div id="formModal" class="fixed inset-0 z-[100] hidden items-end sm:items-center justify-center p-0 sm:p-4 modal-overlay">
+    <div class="w-full sm:max-w-lg bg-surface-850 sm:rounded-2xl rounded-t-2xl neon-border neon-glow-strong overflow-hidden fade-in-up modal-body-scroll" style="max-height:92vh;">
+      <!-- Drag Handle (mobile) -->
+      <div class="sm:hidden flex justify-center pt-3 pb-1">
+        <div class="w-10 h-1 rounded-full bg-slate-700"></div>
+      </div>
+
+      <!-- Modal Header -->
+      <div class="px-5 sm:px-6 py-3 sm:py-4 border-b border-slate-700/50 flex items-center justify-between">
+        <h2 id="modalTitle" class="text-[15px] sm:text-base font-bold text-white">Add New Project</h2>
+        <button onclick="closeFormModal()" class="text-slate-500 hover:text-slate-300 transition-colors p-2 -mr-2 touch-manipulation" style="min-width:44px; min-height:44px; display:flex; align-items:center; justify-content:center;">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Form -->
+      <form id="projectForm" onsubmit="handleSubmit(event)" class="p-5 sm:p-6 space-y-4">
+        <input type="hidden" id="editId" value="" />
+
+        <div>
+          <label class="block text-[10px] sm:text-[11px] uppercase tracking-widest text-slate-400 font-semibold mb-1.5">ชื่อโปรเจกต์</label>
+          <input id="fName" type="text" required placeholder="เช่น AI Content Generator" class="form-input w-full rounded-lg px-4 py-3 text-sm text-white touch-manipulation" style="min-height:48px;" />
+        </div>
+
+        <div>
+          <label class="block text-[10px] sm:text-[11px] uppercase tracking-widest text-slate-400 font-semibold mb-1.5">ประเภทโปรเจกต์</label>
+          <select id="fType" required class="form-select w-full rounded-lg px-4 py-3 text-sm text-white touch-manipulation" style="min-height:48px;">
+            <option value="">— เลือก —</option>
+            <option value="APP">📱 APP</option>
+            <option value="Automation Chatbot">🤖 Automation Chatbot</option>
+            <option value="Task ผ่านแพลตฟอร์ม">⚡ Task ผ่านแพลตฟอร์ม</option>
+            <option value="Agent">🧠 Agent</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-[10px] sm:text-[11px] uppercase tracking-widest text-slate-400 font-semibold mb-1.5">เครื่องมือ AI ที่ใช้เป็นหลัก</label>
+          <input id="fAI" type="text" required placeholder="เช่น ChatGPT, Claude, Gemini" class="form-input w-full rounded-lg px-4 py-3 text-sm text-white touch-manipulation" style="min-height:48px;" />
+        </div>
+
+        <div>
+          <label class="block text-[10px] sm:text-[11px] uppercase tracking-widest text-slate-400 font-semibold mb-1.5">สถานะ</label>
+          <select id="fStatus" required class="form-select w-full rounded-lg px-4 py-3 text-sm text-white touch-manipulation" style="min-height:48px;">
+            <option value="รอสร้าง">⏳ รอสร้าง</option>
+            <option value="กำลังสร้าง">🔨 กำลังสร้าง</option>
+            <option value="รอทดลองใช้">🧪 รอทดลองใช้</option>
+            <option value="แก้ไข">🔧 แก้ไข</option>
+            <option value="เสร็จแล้ว">✅ เสร็จแล้ว</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-[10px] sm:text-[11px] uppercase tracking-widest text-slate-400 font-semibold mb-1.5">ผลลัพธ์</label>
+          <select id="fResult" required class="form-select w-full rounded-lg px-4 py-3 text-sm text-white touch-manipulation" style="min-height:48px;">
+            <option value="">— เลือก —</option>
+            <option value="สำเร็จ">✓ สำเร็จ</option>
+            <option value="ไม่สำเร็จ">✗ ไม่สำเร็จ</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-[10px] sm:text-[11px] uppercase tracking-widest text-slate-400 font-semibold mb-1.5">นำไปต่อยอด</label>
+          <select id="fNext" required class="form-select w-full rounded-lg px-4 py-3 text-sm text-white touch-manipulation" style="min-height:48px;">
+            <option value="">— เลือก —</option>
+            <option value="ใช้ในการทำงาน">💼 ใช้ในการทำงาน</option>
+            <option value="รอทำเป็นสินค้า">📦 รอทำเป็นสินค้า</option>
+            <option value="กำลังลองขาย">🛒 กำลังลองขาย</option>
+            <option value="ขายได้แล้ว">💰 ขายได้แล้ว</option>
+          </select>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex gap-3 pt-2 pb-4 sm:pb-0">
+          <button type="button" onclick="closeFormModal()" class="flex-1 rounded-lg px-4 py-3 text-sm font-medium text-slate-400 bg-surface-800 border border-slate-700/50 hover:text-slate-200 transition-all touch-manipulation" style="min-height:48px;">ยกเลิก</button>
+          <button type="submit" class="flex-1 btn-neon rounded-lg px-4 py-3 text-sm font-bold text-white touch-manipulation" style="min-height:48px;">
+            <span id="submitBtnText">Add Project</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== DELETE MODAL ===== -->
+  <div id="deleteModal" class="fixed inset-0 z-[110] hidden items-center justify-center p-4 modal-overlay">
+    <div class="w-full max-w-sm bg-surface-850 rounded-2xl border border-red-500/20 neon-glow overflow-hidden fade-in-up text-center p-6">
+      <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-red-500/10 flex items-center justify-center">
+        <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+      </div>
+      <p class="text-white font-semibold text-sm mb-1">ลบโปรเจกต์นี้?</p>
+      <p class="text-slate-500 text-xs mb-5" id="deleteProjectName">การกระทำนี้ไม่สามารถย้อนกลับได้</p>
+      <div class="flex gap-3">
+        <button onclick="closeDeleteModal()" class="flex-1 rounded-lg px-4 py-3 text-sm font-medium text-slate-400 bg-surface-800 border border-slate-700/50 hover:text-slate-200 transition-all touch-manipulation" style="min-height:48px;">ยกเลิก</button>
+        <button onclick="confirmDelete()" class="flex-1 rounded-lg px-4 py-3 text-sm font-bold text-white bg-red-500/20 border border-red-500/30 hover:bg-red-500/30 transition-all touch-manipulation" style="min-height:48px;">ลบ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    const STORAGE_KEY = 'myProjectDashboard';
+    let projects = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    let currentFilter = 'all';
+    let deleteTargetId = null;
+
+    function save() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
+    }
+
+    function genId() {
+      return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+    }
+
+    const statusConfig = {
+      'รอสร้าง':     { badge: 'badge-waiting',  icon: '⏳', order: 0 },
+      'กำลังสร้าง':   { badge: 'badge-building',  icon: '🔨', order: 1 },
+      'รอทดลองใช้':   { badge: 'badge-testing',   icon: '🧪', order: 2 },
+      'แก้ไข':        { badge: 'badge-fixing',    icon: '🔧', order: 3 },
+      'เสร็จแล้ว':    { badge: 'badge-done',      icon: '✅', order: 4 },
+    };
+
+    const statusCycle = ['รอสร้าง', 'กำลังสร้าง', 'รอทดลองใช้', 'แก้ไข', 'เสร็จแล้ว'];
+
+    const resultClass = { 'สำเร็จ': 'result-success', 'ไม่สำเร็จ': 'result-fail' };
+    const nextClass = {
+      'ใช้ในการทำงาน': 'next-work',
+      'รอทำเป็นสินค้า': 'next-product',
+      'กำลังลองขาย': 'next-selling',
+      'ขายได้แล้ว': 'next-sold',
+    };
+    const typeIcons = {
+      'APP': '📱',
+      'Automation Chatbot': '🤖',
+      'Task ผ่านแพลตฟอร์ม': '⚡',
+      'Agent': '🧠',
+    };
+
+    // ── Summary ──
+    function renderSummary() {
+      const section = document.getElementById('summarySection');
+      const statuses = ['รอสร้าง', 'กำลังสร้าง', 'รอทดลองใช้', 'แก้ไข', 'เสร็จแล้ว'];
+      const colors = [
+        { bg: 'rgba(251,191,36,0.06)', border: 'rgba(251,191,36,0.15)', text: 'text-amber-400', dot: 'bg-amber-400' },
+        { bg: 'rgba(59,130,246,0.06)', border: 'rgba(59,130,246,0.15)', text: 'text-blue-400', dot: 'bg-blue-400' },
+        { bg: 'rgba(168,85,247,0.06)', border: 'rgba(168,85,247,0.15)', text: 'text-purple-400', dot: 'bg-purple-400' },
+        { bg: 'rgba(251,146,60,0.06)', border: 'rgba(251,146,60,0.15)', text: 'text-orange-400', dot: 'bg-orange-400' },
+        { bg: 'rgba(34,197,94,0.06)', border: 'rgba(34,197,94,0.15)', text: 'text-green-400', dot: 'bg-green-400' },
+      ];
+
+      // Mobile: flex-wrap with percentage widths
+      // 5 items: first 2 at ~48%, next 2 at ~48%, last 1 at ~100%
+      section.innerHTML = statuses.map((s, i) => {
+        const count = projects.filter(p => p.status === s).length;
+        const c = colors[i];
+        const cfg = statusConfig[s];
+        // On mobile: first 4 items = ~half width, last = full width
+        const widthClass = i === 4 ? 'w-full sm:w-auto' : 'w-[calc(50%-4px)] sm:w-auto';
+        return `
+          <div class="${widthClass} summary-card rounded-xl p-2.5 sm:p-3 cursor-pointer touch-manipulation" style="background:${c.bg}; border:1px solid ${c.border}; min-height:64px;" onclick="filterProjects('${s}')">
+            <div class="flex items-center gap-1.5 mb-0.5">
+              <span class="w-1.5 h-1.5 rounded-full ${c.dot} pulse-neon shrink-0"></span>
+              <span class="text-[9px] sm:text-[10px] uppercase tracking-widest text-slate-500 font-semibold truncate">${cfg.icon} ${s}</span>
+            </div>
+            <p class="text-xl sm:text-2xl font-extrabold ${c.text}">${count}</p>
+          </div>`;
+      }).join('');
+
+      document.getElementById('sumSuccess').textContent = projects.filter(p => p.result === 'สำเร็จ').length;
+      document.getElementById('sumFail').textContent = projects.filter(p => p.result === 'ไม่สำเร็จ').length;
+      document.getElementById('sumSold').textContent = projects.filter(p => p.nextStep === 'ขายได้แล้ว').length;
+      document.getElementById('sumSelling').textContent = projects.filter(p => p.nextStep === 'กำลังลองขาย').length;
+      document.getElementById('totalProjects').textContent = projects.length + ' projects';
+    }
+
+    // ── Cards ──
+    function renderCards() {
+      const container = document.getElementById('cardsContainer');
+      const empty = document.getElementById('emptyState');
+
+      let filtered = currentFilter === 'all' ? projects : projects.filter(p => p.status === currentFilter);
+      filtered.sort((a, b) => {
+        const orderDiff = (statusConfig[a.status]?.order || 0) - (statusConfig[b.status]?.order || 0);
+        if (orderDiff !== 0) return orderDiff;
+        return (b.createdAt || 0) - (a.createdAt || 0);
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+      }
+
+      empty.classList.add('hidden');
+
+      container.innerHTML = filtered.map((p, idx) => {
+        const sc = statusConfig[p.status] || {};
+        const rc = resultClass[p.result] || '';
+        const nc = nextClass[p.nextStep] || '';
+        const ti = typeIcons[p.type] || '📋';
+        const isDone = p.status === 'เสร็จแล้ว';
+
+        return `
+        <div class="project-card bg-surface-800/70 rounded-xl p-4 sm:p-5 fade-in-up relative" style="animation-delay: ${idx * 0.05}s">
+          <!-- Top Row -->
+          <div class="flex items-start justify-between mb-2.5 sm:mb-3">
+            <div class="flex items-center gap-2 min-w-0">
+              <span class="text-base sm:text-lg shrink-0">${ti}</span>
+              <h3 class="font-bold text-white text-[13px] sm:text-sm truncate">${esc(p.name)}</h3>
+            </div>
+            <div class="flex items-center gap-1 shrink-0 ml-2">
+              <button onclick="editProject('${p.id}')" class="p-2 rounded-md text-slate-600 hover:text-neon-400 hover:bg-neon-400/5 transition-all touch-manipulation" style="min-width:36px; min-height:36px; display:flex; align-items:center; justify-content:center;" title="แก้ไข">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+              </button>
+              <button onclick="openDeleteModal('${p.id}')" class="btn-delete p-2 rounded-md text-slate-600 touch-manipulation" style="min-width:36px; min-height:36px; display:flex; align-items:center; justify-content:center;" title="ลบ">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Type & AI -->
+          <div class="flex flex-wrap items-center gap-2 mb-2.5 sm:mb-3">
+            <span class="text-[11px] font-medium px-2 py-0.5 rounded-md" style="background:rgba(0,212,255,0.08); color:#00d4ff; border:1px solid rgba(0,212,255,0.15);">${esc(p.type)}</span>
+            <span class="text-[11px] text-slate-500 truncate">🤖 ${esc(p.aiTools)}</span>
+          </div>
+
+          <!-- Status -->
+          <div class="mb-2.5 sm:mb-3">
+            <button onclick="cycleStatus('${p.id}')" class="btn-status-cycle inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-semibold px-2.5 py-1.5 rounded-md ${sc.badge || ''} touch-manipulation" style="min-height:32px;" title="กดเพื่อเปลี่ยนสถานะ">
+              ${sc.icon || ''} ${p.status}
+              <svg class="w-3 h-3 opacity-40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            </button>
+          </div>
+
+          <!-- Result & Next Step -->
+          <div class="flex flex-wrap gap-2 mb-2.5 sm:mb-3">
+            <span class="text-[11px] font-medium px-2 py-0.5 rounded-md ${rc}">${p.result === 'สำเร็จ' ? '✓' : '✗'} ${esc(p.result)}</span>
+            <span class="text-[11px] font-medium px-2 py-0.5 rounded-md ${nc}">→ ${esc(p.nextStep)}</span>
+          </div>
+
+          <!-- Quick Action -->
+          ${!isDone ? `
+          <button onclick="markDone('${p.id}')" class="w-full mt-1 text-[11px] sm:text-xs font-semibold py-2 rounded-md bg-green-500/8 border border-green-500/20 text-green-400 hover:bg-green-500/15 transition-all touch-manipulation" style="min-height:40px;">
+            ✓ สำเร็จแล้ว
+          </button>` : `
+          <div class="w-full mt-1 text-[11px] sm:text-xs font-semibold py-2 rounded-md bg-green-500/10 border border-green-500/20 text-green-400 text-center" style="min-height:40px;">
+            ✅ เสร็จสมบูรณ์
+          </div>`}
+
+          <!-- Date -->
+          <p class="text-[10px] text-slate-600 mt-2">${p.createdAt ? new Date(p.createdAt).toLocaleDateString('th-TH', { year:'numeric', month:'short', day:'numeric' }) : ''}</p>
+        </div>`;
+      }).join('');
+    }
+
+    function esc(str) {
+      const div = document.createElement('div');
+      div.textContent = str || '';
+      return div.innerHTML;
+    }
+
+    // ── Filter ──
+    function filterProjects(status) {
+      currentFilter = status;
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active-filter', btn.dataset.filter === status);
+      });
+      renderCards();
+    }
+
+    // ── Modal ──
+    function openFormModal(editData = null) {
+      const modal = document.getElementById('formModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.getElementById('projectForm').reset();
+      document.getElementById('editId').value = '';
+      document.getElementById('submitBtnText').textContent = 'Add Project';
+      document.getElementById('modalTitle').textContent = 'Add New Project';
+      // Prevent body scroll
+      document.body.style.overflow = 'hidden';
+
+      if (editData) {
+        document.getElementById('editId').value = editData.id;
+        document.getElementById('fName').value = editData.name;
+        document.getElementById('fType').value = editData.type;
+        document.getElementById('fAI').value = editData.aiTools;
+        document.getElementById('fStatus').value = editData.status;
+        document.getElementById('fResult').value = editData.result;
+        document.getElementById('fNext').value = editData.nextStep;
+        document.getElementById('submitBtnText').textContent = 'Update';
+        document.getElementById('modalTitle').textContent = 'Edit Project';
+      }
+    }
+
+    function closeFormModal() {
+      const modal = document.getElementById('formModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    // ── Submit ──
+    function handleSubmit(e) {
+      e.preventDefault();
+      const editId = document.getElementById('editId').value;
+      const data = {
+        name: document.getElementById('fName').value.trim(),
+        type: document.getElementById('fType').value,
+        aiTools: document.getElementById('fAI').value.trim(),
+        status: document.getElementById('fStatus').value,
+        result: document.getElementById('fResult').value,
+        nextStep: document.getElementById('fNext').value,
+      };
+
+      if (editId) {
+        const idx = projects.findIndex(p => p.id === editId);
+        if (idx !== -1) projects[idx] = { ...projects[idx], ...data };
+      } else {
+        data.id = genId();
+        data.createdAt = Date.now();
+        projects.push(data);
+      }
+
+      save();
+      closeFormModal();
+      renderAll();
+    }
+
+    function editProject(id) {
+      const p = projects.find(x => x.id === id);
+      if (p) openFormModal(p);
+    }
+
+    // ── Delete ──
+    function openDeleteModal(id) {
+      deleteTargetId = id;
+      const p = projects.find(x => x.id === id);
+      document.getElementById('deleteProjectName').textContent = `"${p?.name || ''}" จะถูกลบถาวร`;
+      const modal = document.getElementById('deleteModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDeleteModal() {
+      const modal = document.getElementById('deleteModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+      deleteTargetId = null;
+    }
+
+    function confirmDelete() {
+      if (deleteTargetId) {
+        projects = projects.filter(p => p.id !== deleteTargetId);
+        save();
+        renderAll();
+      }
+      closeDeleteModal();
+    }
+
+    // ── Status ──
+    function cycleStatus(id) {
+      const p = projects.find(x => x.id === id);
+      if (!p) return;
+      const currentIdx = statusCycle.indexOf(p.status);
+      p.status = statusCycle[(currentIdx + 1) % statusCycle.length];
+      save();
+      renderAll();
+    }
+
+    function markDone(id) {
+      const p = projects.find(x => x.id === id);
+      if (!p) return;
+      p.status = 'เสร็จแล้ว';
+      save();
+      renderAll();
+    }
+
+    // ── Render ──
+    function renderAll() {
+      renderSummary();
+      renderCards();
+    }
+
+    // ── Close modals on overlay ──
+    document.getElementById('formModal').addEventListener('click', function(e) {
+      if (e.target === this) closeFormModal();
+    });
+    document.getElementById('deleteModal').addEventListener('click', function(e) {
+      if (e.target === this) closeDeleteModal();
+    });
+
+    // ── Swipe down to close modal (mobile) ──
+    let touchStartY = 0;
+    const formModal = document.getElementById('formModal');
+    formModal.addEventListener('touchstart', function(e) {
+      const modalContent = formModal.querySelector('.modal-body-scroll');
+      if (modalContent.scrollTop <= 0) {
+        touchStartY = e.touches[0].clientY;
+      }
+    }, { passive: true });
+    formModal.addEventListener('touchmove', function(e) {
+      const diff = e.touches[0].clientY - touchStartY;
+      const modalContent = formModal.querySelector('.modal-body-scroll');
+      if (diff > 100 && modalContent.scrollTop <= 0) {
+        closeFormModal();
+      }
+    }, { passive: true });
+
+    // ── Keyboard ──
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') { closeFormModal(); closeDeleteModal(); }
+    });
+
+    // ── Init ──
+    renderAll();
+  </script>
+</body>
+</html>
